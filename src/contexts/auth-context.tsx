@@ -40,15 +40,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signInWithGoogle = async () => {
     try {
+      setLoading(true)
+      
+      // Detectar si estamos en producción o desarrollo
+      const isProduction = process.env.NODE_ENV === 'production'
+      const baseUrl = isProduction ? 'https://discvault.vercel.app' : 'http://localhost:3000'
+      
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/`
+          redirectTo: `${baseUrl}/`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
         }
       })
-      if (error) throw error
+      
+      if (error) {
+        console.error('Error signing in with Google:', error)
+        throw error
+      }
     } catch (error) {
       console.error('Error signing in with Google:', error)
+      setLoading(false)
     }
   }
 
