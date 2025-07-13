@@ -101,7 +101,7 @@ export function AlbumGrid() {
         {albums.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-gray-500 font-mono text-sm">No hay álbumes guardados</div>
-            <div className="text-gray-400 font-mono text-xs mt-2">Haz click en "AGREGAR" para comenzar</div>
+            <div className="text-gray-400 font-mono text-xs mt-2">Haz click en &quot;AGREGAR&quot; para comenzar</div>
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 max-w-7xl mx-auto">

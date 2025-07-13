@@ -1,7 +1,6 @@
 "use client"
 
 import { Dialog, DialogContent, DialogTitle, DialogHeader } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
 import { RatingStars } from "./rating-stars"
 import type { Album } from "@/types/album"
 

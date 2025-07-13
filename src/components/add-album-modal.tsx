@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -26,28 +26,31 @@ export function AddAlbumModal({ isOpen, onClose, onSave, editingAlbum }: AddAlbu
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumSearchResult | null>(null)
   const [showDropdown, setShowDropdown] = useState(false)
 
-  // Debounced search function
-  const debouncedSearch = useCallback(
-    debounce(async (query: string) => {
-      if (query.trim().length < 2) {
-        setSearchResults([])
-        setShowDropdown(false)
-        return
-      }
+  // Search function
+  const searchAlbums = useCallback(async (query: string) => {
+    if (query.trim().length < 2) {
+      setSearchResults([])
+      setShowDropdown(false)
+      return
+    }
 
-      setIsSearching(true)
-      try {
-        const results = await musicApi.searchAlbums(query)
-        setSearchResults(results)
-        setShowDropdown(true)
-      } catch (error) {
-        console.error('Search error:', error)
-        setSearchResults([])
-      } finally {
-        setIsSearching(false)
-      }
-    }, 300),
-    []
+    setIsSearching(true)
+    try {
+      const results = await musicApi.searchAlbums(query)
+      setSearchResults(results)
+      setShowDropdown(true)
+    } catch (error) {
+      console.error('Search error:', error)
+      setSearchResults([])
+    } finally {
+      setIsSearching(false)
+    }
+  }, [])
+
+  // Debounced search function
+  const debouncedSearch = useMemo(
+    () => debounce(searchAlbums, 300),
+    [searchAlbums]
   )
 
   // Effect to trigger search when query changes
@@ -202,10 +205,10 @@ export function AddAlbumModal({ isOpen, onClose, onSave, editingAlbum }: AddAlbu
 }
 
 // Debounce utility function
-function debounce<T extends (...args: any[]) => any>(func: T, delay: number): T {
+function debounce(func: (query: string) => Promise<void>, delay: number) {
   let timeoutId: NodeJS.Timeout
-  return ((...args: Parameters<T>) => {
+  return (query: string) => {
     clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => func(...args), delay)
-  }) as T
+    timeoutId = setTimeout(() => func(query), delay)
+  }
 }
