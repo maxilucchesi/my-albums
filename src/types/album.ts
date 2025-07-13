@@ -7,6 +7,7 @@ export interface Album {
   itunes_id?: string
   musicbrainz_id?: string
   release_year?: string | null
+  user_id: string
   created_at: string
   updated_at: string
 }

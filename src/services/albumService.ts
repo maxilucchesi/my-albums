@@ -23,7 +23,7 @@ export class AlbumService {
   }
 
   // Add a new album
-  async addAlbum(albumData: Omit<Album, 'id' | 'created_at' | 'updated_at'>): Promise<Album | null> {
+  async addAlbum(albumData: Omit<Album, 'id' | 'created_at' | 'updated_at'>, userId: string): Promise<Album | null> {
     try {
       console.log('Adding album to Supabase:', albumData)
       const { data, error } = await supabase
@@ -35,7 +35,8 @@ export class AlbumService {
           rating: albumData.rating,
           itunes_id: albumData.itunes_id,
           musicbrainz_id: albumData.musicbrainz_id,
-          release_year: albumData.release_year
+          release_year: albumData.release_year,
+          user_id: userId
         })
         .select()
         .single()

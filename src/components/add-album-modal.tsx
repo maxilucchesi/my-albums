@@ -76,43 +76,53 @@ export function AddAlbumModal({ isOpen, onClose, onSave, editingAlbum }: AddAlbu
   }
 
   const handleSave = async () => {
-    if (!searchQuery.trim()) return
-
     setIsLoading(true)
 
     try {
       let albumData: Partial<Album>
 
-      if (selectedAlbum) {
-        // Use selected album from search results
-        console.log('Selected album for saving:', selectedAlbum)
+      if (editingAlbum) {
+        // Modo edición: solo actualizar el rating
         albumData = {
-          id: editingAlbum?.id || Date.now().toString(),
-          title: selectedAlbum.title,
-          artist: selectedAlbum.artist,
-          artwork_url: selectedAlbum.artwork_url,
+          ...editingAlbum,
           rating,
-          itunes_id: selectedAlbum.source === 'itunes' ? selectedAlbum.external_id : undefined,
-          musicbrainz_id: selectedAlbum.source === 'musicbrainz' ? selectedAlbum.external_id : undefined,
-          release_year: selectedAlbum.release_year,
-          created_at: editingAlbum?.created_at || new Date().toISOString(),
           updated_at: new Date().toISOString(),
         }
-        console.log('Album data to save:', albumData)
       } else {
-        // Manual entry fallback
-        const [artist, ...titleParts] = searchQuery.split(' - ')
-        const title = titleParts.join(' - ') || artist
+        // Modo agregar: crear nuevo álbum
+        if (!searchQuery.trim()) return
 
-        albumData = {
-          id: editingAlbum?.id || Date.now().toString(),
-          title: titleParts.length > 0 ? title : searchQuery,
-          artist: titleParts.length > 0 ? artist : "Unknown Artist",
-          artwork_url: "/placeholder.svg",
-          rating,
-          release_year: null,
-          created_at: editingAlbum?.created_at || new Date().toISOString(),
-          updated_at: new Date().toISOString(),
+        if (selectedAlbum) {
+          // Use selected album from search results
+          console.log('Selected album for saving:', selectedAlbum)
+          albumData = {
+            id: Date.now().toString(),
+            title: selectedAlbum.title,
+            artist: selectedAlbum.artist,
+            artwork_url: selectedAlbum.artwork_url,
+            rating,
+            itunes_id: selectedAlbum.source === 'itunes' ? selectedAlbum.external_id : undefined,
+            musicbrainz_id: selectedAlbum.source === 'musicbrainz' ? selectedAlbum.external_id : undefined,
+            release_year: selectedAlbum.release_year,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          }
+          console.log('Album data to save:', albumData)
+        } else {
+          // Manual entry fallback
+          const [artist, ...titleParts] = searchQuery.split(' - ')
+          const title = titleParts.join(' - ') || artist
+
+          albumData = {
+            id: Date.now().toString(),
+            title: titleParts.length > 0 ? title : searchQuery,
+            artist: titleParts.length > 0 ? artist : "Unknown Artist",
+            artwork_url: "/placeholder.svg",
+            rating,
+            release_year: null,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          }
         }
       }
 
@@ -161,39 +171,68 @@ export function AddAlbumModal({ isOpen, onClose, onSave, editingAlbum }: AddAlbu
         </DialogHeader>
 
         <div className="space-y-6 py-4">
-          <div className="space-y-2 relative">
-            <Label htmlFor="search" className="text-sm font-normal">
-              Artista o Álbum
-            </Label>
-            <Input
-              id="search"
-              value={searchQuery}
-              onChange={handleInputChange}
-              onFocus={handleInputFocus}
-              placeholder="Buscar..."
-              className="font-mono"
-              disabled={isLoading}
-            />
-            <AlbumSearchDropdown
-              results={searchResults}
-              isLoading={isSearching}
-              onSelect={handleAlbumSelect}
-              isOpen={showDropdown}
-            />
-          </div>
+          {editingAlbum ? (
+            // Modo edición: solo mostrar info del álbum y rating
+            <>
+              <div className="text-center space-y-2">
+                <div className="text-lg font-bold text-black">
+                  {editingAlbum.title}
+                </div>
+                <div className="text-base italic text-black">
+                  {editingAlbum.artist}
+                </div>
+                {editingAlbum.release_year && (
+                  <div className="text-sm text-gray-600">
+                    ({editingAlbum.release_year})
+                  </div>
+                )}
+              </div>
 
-          <div className="space-y-2">
-            <Label className="text-sm font-normal">Rating</Label>
-            <div className="flex justify-center">
-              <RatingStars rating={rating} onChange={setRating} interactive size="lg" />
-            </div>
-          </div>
+              <div className="space-y-2">
+                <Label className="text-sm font-normal">Rating</Label>
+                <div className="flex justify-center">
+                  <RatingStars rating={rating} onChange={setRating} interactive size="lg" />
+                </div>
+              </div>
+            </>
+          ) : (
+            // Modo agregar: mostrar búsqueda y rating
+            <>
+              <div className="space-y-2 relative">
+                <Label htmlFor="search" className="text-sm font-normal">
+                  Artista o Álbum
+                </Label>
+                <Input
+                  id="search"
+                  value={searchQuery}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  placeholder="Buscar..."
+                  className="font-mono"
+                  disabled={isLoading}
+                />
+                <AlbumSearchDropdown
+                  results={searchResults}
+                  isLoading={isSearching}
+                  onSelect={handleAlbumSelect}
+                  isOpen={showDropdown}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-sm font-normal">Rating</Label>
+                <div className="flex justify-center">
+                  <RatingStars rating={rating} onChange={setRating} interactive size="lg" />
+                </div>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="flex justify-center">
           <Button
             onClick={handleSave}
-            disabled={!searchQuery.trim() || isLoading}
+            disabled={editingAlbum ? isLoading : (!searchQuery.trim() || isLoading)}
             className="bg-black text-white hover:bg-gray-800 font-mono text-sm px-8"
           >
             {isLoading ? "GUARDANDO..." : "GUARDAR"}

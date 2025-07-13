@@ -19,6 +19,7 @@ export interface Database {
           itunes_id: string | null
           musicbrainz_id: string | null
           release_year: string | null
+          user_id: string
           created_at: string
           updated_at: string
         }
@@ -31,6 +32,7 @@ export interface Database {
           itunes_id?: string | null
           musicbrainz_id?: string | null
           release_year?: string | null
+          user_id: string
           created_at?: string
           updated_at?: string
         }
@@ -43,6 +45,7 @@ export interface Database {
           itunes_id?: string | null
           musicbrainz_id?: string | null
           release_year?: string | null
+          user_id?: string
           created_at?: string
           updated_at?: string
         }
