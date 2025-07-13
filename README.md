@@ -2,56 +2,56 @@
 
 🌐 [discvault.vercel.app](https://discvault.vercel.app/)
 
-## Descripción
+## descripción
 
-discvault es una aplicación simple para organizar y trackear álbumes musicales. Está pensada para registrar álbumes que escuchaste por primera vez de principio a fin, permitiendo calificarlos y mantener un registro personal de tus escuchas. La interfaz es minimalista y directa, buscando destacar el arte de tapa de cada disco.
+discvault es una aplicación simple para organizar y trackear álbumes musicales. está pensada para registrar álbumes que escuchaste por primera vez de principio a fin, permitiendo calificarlos y mantener un registro personal de tus escuchas. la interfaz es minimalista y directa, buscando destacar el arte de tapa de cada disco.
 
-## Stack tecnológico
+## stack tecnológico
 
-- **[Next.js 15](https://nextjs.org/)** - Framework de React con App Router
-- **[TypeScript](https://www.typescriptlang.org/)** - Tipado estático
-- **[Tailwind CSS](https://tailwindcss.com/)** - Estilos utilitarios
-- **[Supabase](https://supabase.com/)** - Base de datos
-- **[Radix UI](https://radix-ui.com/)** - Componentes primitivos
-- **[Lucide React](https://lucide.dev/)** - Iconos
-- **[Vercel](https://vercel.com/)** - Hosting
+- **[Next.js 15](https://nextjs.org/)** - framework de React con App Router
+- **[TypeScript](https://www.typescriptlang.org/)** - tipado estático
+- **[Tailwind CSS](https://tailwindcss.com/)** - estilos utilitarios
+- **[Supabase](https://supabase.com/)** - base de datos
+- **[Radix UI](https://radix-ui.com/)** - componentes primitivos
+- **[Lucide React](https://lucide.dev/)** - iconos
+- **[Vercel](https://vercel.com/)** - hosting
 
-## Estructura del proyecto
+## estructura del proyecto
 
 ```
 src/
-├── app/                 # App Router de Next.js
-│   ├── globals.css     # Estilos globales
-│   ├── layout.tsx      # Layout principal
-│   └── page.tsx        # Página principal
-├── components/         # Componentes React
-│   ├── ui/            # Componentes UI reutilizables
+├── app/                 # app router de next.js
+│   ├── globals.css     # estilos globales
+│   ├── layout.tsx      # layout principal
+│   └── page.tsx        # página principal
+├── components/         # componentes react
+│   ├── ui/            # componentes ui reutilizables
 │   ├── add-album-modal.tsx
 │   ├── album-card.tsx
 │   ├── album-grid.tsx
 │   └── ...
-├── lib/               # Utilidades y configuraciones
-│   ├── supabase.ts    # Cliente de Supabase
-│   └── utils.ts       # Funciones utilitarias
-├── services/          # Servicios API
+├── lib/               # utilidades y configuraciones
+│   ├── supabase.ts    # cliente de supabase
+│   └── utils.ts       # funciones utilitarias
+├── services/          # servicios api
 │   ├── albumService.ts
 │   └── musicApi.ts
-├── types/             # Definiciones de TypeScript
+├── types/             # definiciones de typescript
 │   └── album.ts
-└── data/              # Datos de ejemplo
+└── data/              # datos de ejemplo
     └── sample-albums.ts
 ```
 
-## Contribuciones
+## contribuciones
 
-Si querés contribuir al proyecto:
+si querés contribuir al proyecto:
 
-1. Hacé fork del repositorio
-2. Creá una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Commiteá tus cambios (`git commit -m 'Agregar nueva funcionalidad'`)
-4. Pusheá la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abrí un Pull Request
+1. hacé fork del repositorio
+2. creá una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
+3. commiteá tus cambios (`git commit -m 'agregar nueva funcionalidad'`)
+4. pusheá la rama (`git push origin feature/nueva-funcionalidad`)
+5. abrí un pull request
 
-## Licencia
+## licencia
 
-Este proyecto está bajo la Licencia MIT.
+este proyecto está bajo la licencia MIT.
