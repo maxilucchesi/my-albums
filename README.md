@@ -4,7 +4,7 @@
 
 ## description
 
-discvault is a simple application to organize and track music albums. it's designed to register albums you listened to for the first time from beginning to end, allowing you to rate them and maintain a personal record of your listens. the interface is minimalist and direct, seeking to highlight the cover art of each record.
+log albums you’ve listened to from start to finish, rate them, and keep your own listening history. with a minimalist interface that puts each artwork front and center, **discvault** turns your curiosity for discovering music into a unique visual archive.
 
 ## tech stack
 
