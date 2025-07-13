@@ -65,40 +65,6 @@ src/
     └── sample-albums.ts
 ```
 
-## database schema
-
-```sql
--- albums table with row-level security
-create table albums (
-  id uuid default gen_random_uuid() primary key,
-  title text not null,
-  artist text not null,
-  artwork_url text,
-  rating integer check (rating >= 0 and rating <= 5),
-  itunes_id text,
-  musicbrainz_id text,
-  release_year text,
-  user_id uuid references auth.users(id) not null,
-  created_at timestamptz default now(),
-  updated_at timestamptz default now()
-);
-
--- row level security policies
-alter table albums enable row level security;
-
-create policy "users can view own albums" on albums
-  for select using (auth.uid() = user_id);
-
-create policy "users can insert own albums" on albums
-  for insert with check (auth.uid() = user_id);
-
-create policy "users can update own albums" on albums
-  for update using (auth.uid() = user_id);
-
-create policy "users can delete own albums" on albums
-  for delete using (auth.uid() = user_id);
-```
-
 ## authentication
 
 - **google oauth** - secure login with your google account
