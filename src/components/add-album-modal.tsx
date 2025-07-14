@@ -170,7 +170,7 @@ export function AddAlbumModal({ isOpen, onClose, onSave, editingAlbum }: AddAlbu
           </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-4 py-2">
+        <div className="space-y-6 pt-2 pb-4">
           {editingAlbum ? (
             // Modo edición: solo mostrar info del álbum y rating
             <>
