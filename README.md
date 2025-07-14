@@ -1,127 +1,37 @@
-# discvault
+# My Albums - DiscVault
 
-🌐 [discvault.vercel.app](https://discvault.vercel.app/)
+Una aplicación web para gestionar y valorar tu colección de álbumes musicales.
 
-## description
+<!-- Development branch testing -->
 
-log albums you've listened to from start to finish, rate them, and keep your own listening history. with a minimalist interface that puts each artwork front and center, **discvault** turns your curiosity for discovering music into a unique visual archive.
+## Features
 
-**✨ now with multi-user authentication** - each user has their own private collection.
+- Autenticación con Google OAuth
+- Gestión personal de álbumes
+- Sistema de valoración
+- Búsqueda y filtrado
+- Interfaz moderna con Tailwind CSS
 
-## features
+## Tecnologías
 
-- **🔐 multi-user authentication** with google oauth
-- **📱 minimalist interface** inspired by premium brands
-- **⭐ personal ratings** for each album (1-5 stars)
-- **🎵 smart search** powered by itunes and musicbrainz apis
-- **📱 responsive design** works perfectly on mobile and desktop
-- **🔒 private collections** - each user sees only their own albums
-- **⚡ real-time sync** across all your devices
+- Next.js 15
+- TypeScript
+- Supabase (Backend & Auth)
+- Tailwind CSS
+- Vercel (Deploy)
 
-## tech stack
+## Instalación
 
-- **[Next.js 15](https://nextjs.org/)** - react framework with app router
-- **[TypeScript](https://www.typescriptlang.org/)** - static typing
-- **[Tailwind CSS](https://tailwindcss.com/)** - utility-first styling
-- **[Supabase](https://supabase.com/)** - database and authentication
-- **[Radix UI](https://radix-ui.com/)** - primitive components
-- **[Lucide React](https://lucide.dev/)** - icons
-- **[Vercel](https://vercel.com/)** - hosting
-
-## getting started
-
-1. **sign in** with your google account
-2. **add albums** by searching for artist or album name
-3. **rate them** from 1 to 5 stars
-4. **build your collection** - it's automatically saved and synced
-
-## project structure
-
-```
-src/
-├── app/                 # next.js app router
-│   ├── globals.css     # global styles
-│   ├── layout.tsx      # main layout
-│   └── page.tsx        # main page
-├── components/         # react components
-│   ├── ui/            # reusable ui components
-│   ├── add-album-modal.tsx
-│   ├── album-card.tsx
-│   ├── album-grid.tsx
-│   ├── auth-button.tsx
-│   ├── login-modal.tsx
-│   └── ...
-├── contexts/          # react contexts
-│   └── auth-context.tsx
-├── lib/               # utilities and configurations
-│   ├── supabase.ts    # supabase client
-│   └── utils.ts       # utility functions
-├── services/          # api services
-│   ├── albumService.ts
-│   └── musicApi.ts
-├── types/             # typescript definitions
-│   └── album.ts
-└── data/              # sample data
-    └── sample-albums.ts
+```bash
+npm install
+npm run dev
 ```
 
-## database schema
+## Variables de Entorno
 
-```sql
--- albums table with row-level security
-create table albums (
-  id uuid default gen_random_uuid() primary key,
-  title text not null,
-  artist text not null,
-  artwork_url text,
-  rating integer check (rating >= 0 and rating <= 5),
-  itunes_id text,
-  musicbrainz_id text,
-  release_year text,
-  user_id uuid references auth.users(id) not null,
-  created_at timestamptz default now(),
-  updated_at timestamptz default now()
-);
+Crear archivo `.env.local` con:
 
--- row level security policies
-alter table albums enable row level security;
-
-create policy "users can view own albums" on albums
-  for select using (auth.uid() = user_id);
-
-create policy "users can insert own albums" on albums
-  for insert with check (auth.uid() = user_id);
-
-create policy "users can update own albums" on albums
-  for update using (auth.uid() = user_id);
-
-create policy "users can delete own albums" on albums
-  for delete using (auth.uid() = user_id);
+```env
+NEXT_PUBLIC_SUPABASE_URL=tu_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_supabase_anon_key
 ```
-
-## authentication
-
-- **google oauth** - secure login with your google account
-- **row level security** - your albums are completely private
-- **session management** - stay logged in across browser sessions
-- **multi-device sync** - access your collection from anywhere
-
-## api integration
-
-- **itunes search api** - primary source for album data and artwork
-- **musicbrainz api** - fallback for additional metadata
-- **cover art archive** - high-quality album artwork
-
-## contributions
-
-if you want to contribute to the project:
-
-1. fork the repository
-2. create a branch for your feature (`git checkout -b feature/new-feature`)
-3. commit your changes (`git commit -m 'add new feature'`)
-4. push the branch (`git push origin feature/new-feature`)
-5. open a pull request
-
-## license
-
-this project is under the MIT license.
