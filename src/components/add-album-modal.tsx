@@ -170,7 +170,7 @@ export function AddAlbumModal({ isOpen, onClose, onSave, editingAlbum }: AddAlbu
           </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-6 py-4">
+        <div className="space-y-6 pt-0 pb-4">
           {editingAlbum ? (
             // Modo edición: solo mostrar info del álbum y rating
             <>
@@ -207,9 +207,15 @@ export function AddAlbumModal({ isOpen, onClose, onSave, editingAlbum }: AddAlbu
                   value={searchQuery}
                   onChange={handleInputChange}
                   onFocus={handleInputFocus}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.currentTarget.blur()
+                    }
+                  }}
                   placeholder="Buscar..."
                   className="font-mono"
                   disabled={isLoading}
+                  enterKeyHint="done"
                 />
                 <AlbumSearchDropdown
                   results={searchResults}

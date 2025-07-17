@@ -14,7 +14,7 @@ export function AlbumSearchDropdown({ results, isLoading, onSelect, isOpen }: Al
   if (!isOpen) return null
 
   return (
-    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-y-auto">
+    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-[50vh] overflow-y-auto">
       {isLoading ? (
         <div className="p-4 text-center text-gray-500 font-mono text-sm">
           Buscando...
