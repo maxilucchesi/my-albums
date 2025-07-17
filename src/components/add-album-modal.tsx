@@ -55,10 +55,10 @@ export function AddAlbumModal({ isOpen, onClose, onSave, editingAlbum }: AddAlbu
 
   // Effect to trigger search when query changes
   useEffect(() => {
-    if (!editingAlbum) { // Only search when adding new, not when editing
+    if (!editingAlbum && !selectedAlbum) { // Only search when adding new, not when editing, and not when album is already selected
       debouncedSearch(searchQuery)
     }
-  }, [searchQuery, debouncedSearch, editingAlbum])
+  }, [searchQuery, debouncedSearch, editingAlbum, selectedAlbum])
 
   // Clear search results when modal closes
   useEffect(() => {
