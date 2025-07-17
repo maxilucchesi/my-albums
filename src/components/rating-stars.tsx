@@ -2,7 +2,7 @@
 
 interface RatingStarsProps {
   rating: number
-  size?: "sm" | "md" | "lg"
+  size?: "sm" | "md" | "lg" | "xl"
   onChange?: (rating: number) => void
   interactive?: boolean
 }
@@ -12,6 +12,7 @@ export function RatingStars({ rating, size = "md", onChange, interactive = false
     sm: "text-sm",
     md: "text-base",
     lg: "text-lg",
+    xl: "text-2xl",
   }
 
   const handleClick = (newRating: number) => {

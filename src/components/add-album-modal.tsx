@@ -191,7 +191,7 @@ export function AddAlbumModal({ isOpen, onClose, onSave, editingAlbum }: AddAlbu
               <div className="space-y-2">
                 <Label className="text-sm font-normal">Rating</Label>
                 <div className="flex justify-center">
-                  <RatingStars rating={rating} onChange={setRating} interactive size="lg" />
+                  <RatingStars rating={rating} onChange={setRating} interactive size="xl" />
                 </div>
               </div>
             </>
@@ -228,7 +228,7 @@ export function AddAlbumModal({ isOpen, onClose, onSave, editingAlbum }: AddAlbu
               <div className="space-y-2">
                 <Label className="text-sm font-normal">Rating</Label>
                 <div className="flex justify-center">
-                  <RatingStars rating={rating} onChange={setRating} interactive size="lg" />
+                  <RatingStars rating={rating} onChange={setRating} interactive size="xl" />
                 </div>
               </div>
             </>
